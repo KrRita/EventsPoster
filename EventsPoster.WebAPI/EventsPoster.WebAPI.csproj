@@ -19,4 +19,8 @@
     <Folder Include="Settings\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EventsPoster.BL\EventsPoster.BL.csproj" />
+  </ItemGroup>
+
 </Project>
