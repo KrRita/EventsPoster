@@ -40,4 +40,4 @@
 
 
 Логическая модель данных
-![logical model](https://github.com/KrRita/EventsPoster/blob/master/EventsPoster.png)
+![logical model](https://github.com/KrRita/EventsPoster/blob/master/events_poster.png)
