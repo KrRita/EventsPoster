@@ -1,6 +1,6 @@
 ﻿using Serilog;
 
-namespace EventsPoster.WebAPI.IoC
+namespace EventsPoster.Service.IoC
 {
     public static class SerilogConfigurator
     {

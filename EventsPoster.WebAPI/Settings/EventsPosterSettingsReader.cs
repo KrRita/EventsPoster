@@ -1,11 +1,13 @@
-﻿namespace EventsPoster.WebAPI.Settings
+﻿namespace EventsPoster.Service.Settings
 {
     public static class EventsPosterSettingsReader
     {
         public static EventsPosterSettings Read(IConfiguration configuration)
         {
-            //здесь будет чтение настроек приложения из конфига
-            return new EventsPosterSettings();
+            return new EventsPosterSettings()
+            {
+                EventsPosterDbContextConnectionString = configuration.GetValue<string>("EventsPosterDbContext")
+            };
         }
     }
 }

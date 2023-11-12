@@ -1,7 +1,7 @@
-﻿namespace EventsPoster.WebAPI.Settings
+﻿namespace EventsPoster.Service.Settings
 {
     public class EventsPosterSettings
     {
-        //тут приложения (н.р строка подключения к базе данных)
+        public string EventsPosterDbContextConnectionString { get; set; }
     }
 }
