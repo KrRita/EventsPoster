@@ -18,7 +18,7 @@ namespace EventsPoster.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExternalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ModificationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -46,7 +46,7 @@ namespace EventsPoster.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "types events",
+                name: "types_events",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -58,7 +58,7 @@ namespace EventsPoster.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_types events", x => x.Id);
+                    table.PrimaryKey("PK_types_events", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -88,7 +88,7 @@ namespace EventsPoster.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdTypeEvent = table.Column<int>(type: "int", nullable: false),
+                    TypeEventId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Desctiption = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AgeViewer = table.Column<int>(type: "int", nullable: false),
@@ -100,9 +100,9 @@ namespace EventsPoster.DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_events", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_events_types events_IdTypeEvent",
-                        column: x => x.IdTypeEvent,
-                        principalTable: "types events",
+                        name: "FK_events_types_events_TypeEventId",
+                        column: x => x.TypeEventId,
+                        principalTable: "types_events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -113,8 +113,8 @@ namespace EventsPoster.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdUser = table.Column<int>(type: "int", nullable: false),
-                    IdEvent = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    EventId = table.Column<int>(type: "int", nullable: false),
                     Review = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExternalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ModificationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -124,26 +124,26 @@ namespace EventsPoster.DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_feedbacks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_feedbacks_events_IdEvent",
-                        column: x => x.IdEvent,
+                        name: "FK_feedbacks_events_EventId",
+                        column: x => x.EventId,
                         principalTable: "events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_feedbacks_users_IdUser",
-                        column: x => x.IdUser,
+                        name: "FK_feedbacks_users_UserId",
+                        column: x => x.UserId,
                         principalTable: "users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "holding events",
+                name: "holding_events",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdEvent = table.Column<int>(type: "int", nullable: false),
+                    EventId = table.Column<int>(type: "int", nullable: false),
                     DateEvent = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExternalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -152,39 +152,39 @@ namespace EventsPoster.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_holding events", x => x.Id);
+                    table.PrimaryKey("PK_holding_events", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_holding events_events_IdEvent",
-                        column: x => x.IdEvent,
+                        name: "FK_holding_events_events_EventId",
+                        column: x => x.EventId,
                         principalTable: "events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "favorite events",
+                name: "favorite_events",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdUser = table.Column<int>(type: "int", nullable: false),
-                    IdHoldingEvent = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    HoldingEventId = table.Column<int>(type: "int", nullable: false),
                     ExternalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ModificationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_favorite events", x => x.Id);
+                    table.PrimaryKey("PK_favorite_events", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_favorite events_holding events_IdUser",
-                        column: x => x.IdUser,
-                        principalTable: "holding events",
+                        name: "FK_favorite_events_holding_events_HoldingEventId",
+                        column: x => x.HoldingEventId,
+                        principalTable: "holding_events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_favorite events_users_IdUser",
-                        column: x => x.IdUser,
+                        name: "FK_favorite_events_users_UserId",
+                        column: x => x.UserId,
                         principalTable: "users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -196,8 +196,8 @@ namespace EventsPoster.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdHoldingEvent = table.Column<int>(type: "int", nullable: false),
-                    IdDiscount = table.Column<int>(type: "int", nullable: false),
+                    HoldingEventId = table.Column<int>(type: "int", nullable: false),
+                    DiscountId = table.Column<int>(type: "int", nullable: true),
                     Price = table.Column<double>(type: "float", nullable: false),
                     ExternalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ModificationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -207,27 +207,26 @@ namespace EventsPoster.DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_tickets_discounts_IdDiscount",
-                        column: x => x.IdDiscount,
+                        name: "FK_tickets_discounts_DiscountId",
+                        column: x => x.DiscountId,
                         principalTable: "discounts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_tickets_holding events_IdHoldingEvent",
-                        column: x => x.IdHoldingEvent,
-                        principalTable: "holding events",
+                        name: "FK_tickets_holding_events_HoldingEventId",
+                        column: x => x.HoldingEventId,
+                        principalTable: "holding_events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "buying tickets",
+                name: "buying_tickets",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdUser = table.Column<int>(type: "int", nullable: false),
-                    IdTicket = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TicketId = table.Column<int>(type: "int", nullable: false),
                     DatePurchase = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExternalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ModificationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -235,16 +234,16 @@ namespace EventsPoster.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_buying tickets", x => x.Id);
+                    table.PrimaryKey("PK_buying_tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_buying tickets_tickets_IdTicket",
-                        column: x => x.IdTicket,
+                        name: "FK_buying_tickets_tickets_TicketId",
+                        column: x => x.TicketId,
                         principalTable: "tickets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_buying tickets_users_IdUser",
-                        column: x => x.IdUser,
+                        name: "FK_buying_tickets_users_UserId",
+                        column: x => x.UserId,
                         principalTable: "users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -257,20 +256,20 @@ namespace EventsPoster.DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_buying tickets_ExternalId",
-                table: "buying tickets",
+                name: "IX_buying_tickets_ExternalId",
+                table: "buying_tickets",
                 column: "ExternalId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_buying tickets_IdTicket",
-                table: "buying tickets",
-                column: "IdTicket");
+                name: "IX_buying_tickets_TicketId",
+                table: "buying_tickets",
+                column: "TicketId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_buying tickets_IdUser",
-                table: "buying tickets",
-                column: "IdUser");
+                name: "IX_buying_tickets_UserId",
+                table: "buying_tickets",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_discounts_ExternalId",
@@ -285,20 +284,30 @@ namespace EventsPoster.DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_events_IdTypeEvent",
+                name: "IX_events_TypeEventId",
                 table: "events",
-                column: "IdTypeEvent");
+                column: "TypeEventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_favorite events_ExternalId",
-                table: "favorite events",
+                name: "IX_favorite_events_ExternalId",
+                table: "favorite_events",
                 column: "ExternalId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_favorite events_IdUser",
-                table: "favorite events",
-                column: "IdUser");
+                name: "IX_favorite_events_HoldingEventId",
+                table: "favorite_events",
+                column: "HoldingEventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_favorite_events_UserId",
+                table: "favorite_events",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_feedbacks_EventId",
+                table: "feedbacks",
+                column: "EventId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_feedbacks_ExternalId",
@@ -307,25 +316,25 @@ namespace EventsPoster.DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_feedbacks_IdEvent",
+                name: "IX_feedbacks_UserId",
                 table: "feedbacks",
-                column: "IdEvent");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_feedbacks_IdUser",
-                table: "feedbacks",
-                column: "IdUser");
+                name: "IX_holding_events_EventId",
+                table: "holding_events",
+                column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_holding events_ExternalId",
-                table: "holding events",
+                name: "IX_holding_events_ExternalId",
+                table: "holding_events",
                 column: "ExternalId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_holding events_IdEvent",
-                table: "holding events",
-                column: "IdEvent");
+                name: "IX_tickets_DiscountId",
+                table: "tickets",
+                column: "DiscountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tickets_ExternalId",
@@ -334,18 +343,13 @@ namespace EventsPoster.DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_tickets_IdDiscount",
+                name: "IX_tickets_HoldingEventId",
                 table: "tickets",
-                column: "IdDiscount");
+                column: "HoldingEventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tickets_IdHoldingEvent",
-                table: "tickets",
-                column: "IdHoldingEvent");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_types events_ExternalId",
-                table: "types events",
+                name: "IX_types_events_ExternalId",
+                table: "types_events",
                 column: "ExternalId",
                 unique: true);
 
@@ -363,10 +367,10 @@ namespace EventsPoster.DataAccess.Migrations
                 name: "admins");
 
             migrationBuilder.DropTable(
-                name: "buying tickets");
+                name: "buying_tickets");
 
             migrationBuilder.DropTable(
-                name: "favorite events");
+                name: "favorite_events");
 
             migrationBuilder.DropTable(
                 name: "feedbacks");
@@ -381,13 +385,13 @@ namespace EventsPoster.DataAccess.Migrations
                 name: "discounts");
 
             migrationBuilder.DropTable(
-                name: "holding events");
+                name: "holding_events");
 
             migrationBuilder.DropTable(
                 name: "events");
 
             migrationBuilder.DropTable(
-                name: "types events");
+                name: "types_events");
         }
     }
 }

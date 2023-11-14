@@ -43,7 +43,7 @@ namespace EventsPoster.DataAccess.Migrations
                     b.Property<DateTime>("ModificationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -72,25 +72,25 @@ namespace EventsPoster.DataAccess.Migrations
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdTicket")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("ModificationTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ExternalId")
                         .IsUnique();
 
-                    b.HasIndex("IdTicket");
+                    b.HasIndex("TicketId");
 
-                    b.HasIndex("IdUser");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("buying tickets");
+                    b.ToTable("buying_tickets");
                 });
 
             modelBuilder.Entity("EventsPoster.DataAccess.Entities.DiscountEntity", b =>
@@ -146,8 +146,39 @@ namespace EventsPoster.DataAccess.Migrations
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdTypeEvent")
+                    b.Property<DateTime>("ModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TypeEventId")
                         .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExternalId")
+                        .IsUnique();
+
+                    b.HasIndex("TypeEventId");
+
+                    b.ToTable("events");
+                });
+
+            modelBuilder.Entity("EventsPoster.DataAccess.Entities.EventType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ExternalId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ModificationTime")
                         .HasColumnType("datetime2");
@@ -161,9 +192,7 @@ namespace EventsPoster.DataAccess.Migrations
                     b.HasIndex("ExternalId")
                         .IsUnique();
 
-                    b.HasIndex("IdTypeEvent");
-
-                    b.ToTable("events");
+                    b.ToTable("types_events");
                 });
 
             modelBuilder.Entity("EventsPoster.DataAccess.Entities.FavoriteEventEntity", b =>
@@ -180,23 +209,25 @@ namespace EventsPoster.DataAccess.Migrations
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdHoldingEvent")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
+                    b.Property<int>("HoldingEventId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ModificationTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ExternalId")
                         .IsUnique();
 
-                    b.HasIndex("IdUser");
+                    b.HasIndex("HoldingEventId");
 
-                    b.ToTable("favorite events");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("favorite_events");
                 });
 
             modelBuilder.Entity("EventsPoster.DataAccess.Entities.FeedbackEntity", b =>
@@ -210,14 +241,11 @@ namespace EventsPoster.DataAccess.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("IdEvent")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("ModificationTime")
                         .HasColumnType("datetime2");
@@ -226,14 +254,17 @@ namespace EventsPoster.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("EventId");
 
                     b.HasIndex("ExternalId")
                         .IsUnique();
 
-                    b.HasIndex("IdEvent");
-
-                    b.HasIndex("IdUser");
+                    b.HasIndex("UserId");
 
                     b.ToTable("feedbacks");
                 });
@@ -252,11 +283,11 @@ namespace EventsPoster.DataAccess.Migrations
                     b.Property<DateTime>("DateEvent")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("IdEvent")
-                        .HasColumnType("int");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -267,12 +298,12 @@ namespace EventsPoster.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EventId");
+
                     b.HasIndex("ExternalId")
                         .IsUnique();
 
-                    b.HasIndex("IdEvent");
-
-                    b.ToTable("holding events");
+                    b.ToTable("holding_events");
                 });
 
             modelBuilder.Entity("EventsPoster.DataAccess.Entities.TicketEntity", b =>
@@ -286,13 +317,13 @@ namespace EventsPoster.DataAccess.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DiscountId")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdDiscount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdHoldingEvent")
+                    b.Property<int>("HoldingEventId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ModificationTime")
@@ -303,43 +334,14 @@ namespace EventsPoster.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DiscountId");
+
                     b.HasIndex("ExternalId")
                         .IsUnique();
 
-                    b.HasIndex("IdDiscount");
-
-                    b.HasIndex("IdHoldingEvent");
+                    b.HasIndex("HoldingEventId");
 
                     b.ToTable("tickets");
-                });
-
-            modelBuilder.Entity("EventsPoster.DataAccess.Entities.TypeEventEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("ExternalId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("ModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExternalId")
-                        .IsUnique();
-
-                    b.ToTable("types events");
                 });
 
             modelBuilder.Entity("EventsPoster.DataAccess.Entities.UserEntity", b =>
@@ -395,13 +397,13 @@ namespace EventsPoster.DataAccess.Migrations
                 {
                     b.HasOne("EventsPoster.DataAccess.Entities.TicketEntity", "Ticket")
                         .WithMany()
-                        .HasForeignKey("IdTicket")
+                        .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EventsPoster.DataAccess.Entities.UserEntity", "User")
                         .WithMany("BuyingTickets")
-                        .HasForeignKey("IdUser")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -412,26 +414,26 @@ namespace EventsPoster.DataAccess.Migrations
 
             modelBuilder.Entity("EventsPoster.DataAccess.Entities.EventEntity", b =>
                 {
-                    b.HasOne("EventsPoster.DataAccess.Entities.TypeEventEntity", "TypeEvent")
+                    b.HasOne("EventsPoster.DataAccess.Entities.EventType", "EventType")
                         .WithMany("Events")
-                        .HasForeignKey("IdTypeEvent")
+                        .HasForeignKey("TypeEventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("TypeEvent");
+                    b.Navigation("EventType");
                 });
 
             modelBuilder.Entity("EventsPoster.DataAccess.Entities.FavoriteEventEntity", b =>
                 {
                     b.HasOne("EventsPoster.DataAccess.Entities.HoldingEventEntity", "HoldingEvent")
                         .WithMany()
-                        .HasForeignKey("IdUser")
+                        .HasForeignKey("HoldingEventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EventsPoster.DataAccess.Entities.UserEntity", "User")
                         .WithMany("FavoriteEvents")
-                        .HasForeignKey("IdUser")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -444,13 +446,13 @@ namespace EventsPoster.DataAccess.Migrations
                 {
                     b.HasOne("EventsPoster.DataAccess.Entities.EventEntity", "Event")
                         .WithMany("Feedbacks")
-                        .HasForeignKey("IdEvent")
+                        .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EventsPoster.DataAccess.Entities.UserEntity", "User")
                         .WithMany("Feedbacks")
-                        .HasForeignKey("IdUser")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -463,7 +465,7 @@ namespace EventsPoster.DataAccess.Migrations
                 {
                     b.HasOne("EventsPoster.DataAccess.Entities.EventEntity", "Event")
                         .WithMany("Holdings")
-                        .HasForeignKey("IdEvent")
+                        .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -474,13 +476,11 @@ namespace EventsPoster.DataAccess.Migrations
                 {
                     b.HasOne("EventsPoster.DataAccess.Entities.DiscountEntity", "Discount")
                         .WithMany("Tickets")
-                        .HasForeignKey("IdDiscount")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DiscountId");
 
                     b.HasOne("EventsPoster.DataAccess.Entities.HoldingEventEntity", "HoldingEvent")
                         .WithMany("Tickets")
-                        .HasForeignKey("IdHoldingEvent")
+                        .HasForeignKey("HoldingEventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -501,14 +501,14 @@ namespace EventsPoster.DataAccess.Migrations
                     b.Navigation("Holdings");
                 });
 
+            modelBuilder.Entity("EventsPoster.DataAccess.Entities.EventType", b =>
+                {
+                    b.Navigation("Events");
+                });
+
             modelBuilder.Entity("EventsPoster.DataAccess.Entities.HoldingEventEntity", b =>
                 {
                     b.Navigation("Tickets");
-                });
-
-            modelBuilder.Entity("EventsPoster.DataAccess.Entities.TypeEventEntity", b =>
-                {
-                    b.Navigation("Events");
                 });
 
             modelBuilder.Entity("EventsPoster.DataAccess.Entities.UserEntity", b =>

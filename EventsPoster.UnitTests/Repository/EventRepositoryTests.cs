@@ -20,7 +20,7 @@ namespace EventsPoster.UnitTests.Repository
         {
             //prepare
             using var context = DbContextFactory.CreateDbContext();
-            var type_event = new TypeEventEntity()
+            var type_event = new EventType()
             {
                 Name = "Опера",
                 ExternalId = Guid.NewGuid()
@@ -32,7 +32,7 @@ namespace EventsPoster.UnitTests.Repository
             {
             new EventEntity()
             {
-                IdTypeEvent=type_event.Id,
+                TypeEventId=type_event.Id,
                 Name="Руслан и Людмила",
                 Desctiption="Потрясающая опера, исполняемая артистами Московского Большого театра",
                 AgeViewer=6,
@@ -40,7 +40,7 @@ namespace EventsPoster.UnitTests.Repository
             },
             new EventEntity()
             {
-                IdTypeEvent=type_event.Id,
+                TypeEventId=type_event.Id,
                 Name="Кармен",
                 Desctiption="Потрясающая опера, исполняемая артистами Московского Большого театра",
                 AgeViewer=12,
@@ -55,14 +55,14 @@ namespace EventsPoster.UnitTests.Repository
             var actualEvents = repository.GetAll();
 
             //assert        
-            actualEvents.Should().BeEquivalentTo(events, options => options.Excluding(x => x.TypeEvent));
+            actualEvents.Should().BeEquivalentTo(events, options => options.Excluding(x => x.EventType));
         }
         [Test]
         public void GetAllEventsWithFilterTest()
         {
             //prepare
             using var context = DbContextFactory.CreateDbContext();
-            var type_event = new TypeEventEntity()
+            var type_event = new EventType()
             {
                 Name = "Опера",
                 ExternalId = Guid.NewGuid()
@@ -74,7 +74,7 @@ namespace EventsPoster.UnitTests.Repository
             {
             new EventEntity()
             {
-                IdTypeEvent=type_event.Id,
+                TypeEventId=type_event.Id,
                 Name="Руслан и Людмила",
                 Desctiption="Потрясающая опера, исполняемая артистами Московского Большого театра",
                 AgeViewer=6,
@@ -82,7 +82,7 @@ namespace EventsPoster.UnitTests.Repository
             },
             new EventEntity()
             {
-                IdTypeEvent=type_event.Id,
+                TypeEventId=type_event.Id,
                 Name="Кармен",
                 Desctiption="Потрясающая опера, исполняемая артистами Московского Большого театра",
                 AgeViewer=12,
@@ -98,7 +98,7 @@ namespace EventsPoster.UnitTests.Repository
             var actualEvents = repository.GetAll(x => x.Name == "Кармен").ToArray();
 
             //assert
-            actualEvents.Should().BeEquivalentTo(events.Where(x => x.Name == "Кармен"), options => options.Excluding(x => x.TypeEvent));
+            actualEvents.Should().BeEquivalentTo(events.Where(x => x.Name == "Кармен"), options => options.Excluding(x => x.EventType));
         }
 
         [Test]
@@ -107,7 +107,7 @@ namespace EventsPoster.UnitTests.Repository
             //prepare
             using var context = DbContextFactory.CreateDbContext();
             //execute
-            var type_event = new TypeEventEntity()
+            var type_event = new EventType()
             {
                 Name = "Опера",
                 ExternalId = Guid.NewGuid()
@@ -117,7 +117,7 @@ namespace EventsPoster.UnitTests.Repository
 
             var my_event = new EventEntity()
             {
-                IdTypeEvent = type_event.Id,
+                TypeEventId = type_event.Id,
                 Name = "Кармен",
                 Desctiption = "Потрясающая опера, исполняемая артистами Московского Большого театра",
                 AgeViewer = 12,
@@ -132,7 +132,7 @@ namespace EventsPoster.UnitTests.Repository
                                                                             .Excluding(x => x.ModificationTime)
                                                                             .Excluding(x => x.CreationTime)
                                                                             .Excluding(x => x.ExternalId)
-                                                                            .Excluding(x=> x.TypeEvent));
+                                                                            .Excluding(x=> x.EventType));
             actualEvent.Id.Should().NotBe(default);
             actualEvent.ModificationTime.Should().NotBe(default);
             actualEvent.CreationTime.Should().NotBe(default);
@@ -144,7 +144,7 @@ namespace EventsPoster.UnitTests.Repository
         {
             //prepare
             using var context = DbContextFactory.CreateDbContext();
-            var type_event = new TypeEventEntity()
+            var type_event = new EventType()
             {
                 Name = "Опера",
                 ExternalId = Guid.NewGuid()
@@ -154,7 +154,7 @@ namespace EventsPoster.UnitTests.Repository
 
             var my_event = new EventEntity()
             {
-                IdTypeEvent = type_event.Id,
+                TypeEventId = type_event.Id,
                 Name = "Кармен",
                 Desctiption = "Потрясающая опера, исполняемая артистами Московского Большого театра",
                 AgeViewer = 12,
@@ -172,7 +172,7 @@ namespace EventsPoster.UnitTests.Repository
 
             //assert
             var actualEvent = context.Events.SingleOrDefault();
-            actualEvent.Should().BeEquivalentTo(my_event, options => options.Excluding(x => x.TypeEvent));
+            actualEvent.Should().BeEquivalentTo(my_event, options => options.Excluding(x => x.EventType));
         }
 
         [Test]
@@ -180,7 +180,7 @@ namespace EventsPoster.UnitTests.Repository
         {
             //prepare
             using var context = DbContextFactory.CreateDbContext();
-            var type_event = new TypeEventEntity()
+            var type_event = new EventType()
             {
                 Name = "Опера",
                 ExternalId = Guid.NewGuid()
@@ -190,7 +190,7 @@ namespace EventsPoster.UnitTests.Repository
 
             var my_event = new EventEntity()
             {
-                IdTypeEvent = type_event.Id,
+                TypeEventId = type_event.Id,
                 Name = "Кармен",
                 Desctiption = "Потрясающая опера, исполняемая артистами Московского Большого театра",
                 AgeViewer = 12,
@@ -212,7 +212,7 @@ namespace EventsPoster.UnitTests.Repository
         {
             //prepare
             using var context = DbContextFactory.CreateDbContext();
-            var type_event = new TypeEventEntity()
+            var type_event = new EventType()
             {
                 Name = "Опера",
                 ExternalId = Guid.NewGuid()
@@ -224,7 +224,7 @@ namespace EventsPoster.UnitTests.Repository
             {
             new EventEntity()
             {
-                IdTypeEvent=type_event.Id,
+                TypeEventId=type_event.Id,
                 Name="Руслан и Людмила",
                 Desctiption="Потрясающая опера, исполняемая артистами Московского Большого театра",
                 AgeViewer=6,
@@ -232,7 +232,7 @@ namespace EventsPoster.UnitTests.Repository
             },
             new EventEntity()
             {
-                IdTypeEvent=type_event.Id,
+                TypeEventId=type_event.Id,
                 Name="Кармен",
                 Desctiption="Потрясающая опера, исполняемая артистами Московского Большого театра",
                 AgeViewer=12,
@@ -247,14 +247,14 @@ namespace EventsPoster.UnitTests.Repository
             var actualEvent = repository.GetById(events[0].Id);
 
             //assert
-            actualEvent.Should().BeEquivalentTo(events[0], options => options.Excluding(x => x.TypeEvent));
+            actualEvent.Should().BeEquivalentTo(events[0], options => options.Excluding(x => x.EventType));
         }
         [Test]
         public void GetByIdTest_NegativeCase()
         {
             //prepare
             using var context = DbContextFactory.CreateDbContext();
-            var type_event = new TypeEventEntity()
+            var type_event = new EventType()
             {
                 Name = "Опера",
                 ExternalId = Guid.NewGuid()
@@ -266,7 +266,7 @@ namespace EventsPoster.UnitTests.Repository
             {
             new EventEntity()
             {
-                IdTypeEvent=type_event.Id,
+                TypeEventId=type_event.Id,
                 Name="Руслан и Людмила",
                 Desctiption="Потрясающая опера, исполняемая артистами Московского Большого театра",
                 AgeViewer=6,
@@ -274,7 +274,7 @@ namespace EventsPoster.UnitTests.Repository
             },
             new EventEntity()
             {
-                IdTypeEvent=type_event.Id,
+                TypeEventId=type_event.Id,
                 Name="Кармен",
                 Desctiption="Потрясающая опера, исполняемая артистами Московского Большого театра",
                 AgeViewer=12,

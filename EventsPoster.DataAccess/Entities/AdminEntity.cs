@@ -12,7 +12,9 @@ namespace EventsPoster.DataAccess.Entities
     [Table("admins")]
     public class AdminEntity : BaseEntity
     {
+        [Required]
         public string Login { get; set; }
-        public string Password { get; set; }
+        [Required]
+        public string PasswordHash { get; set; }
     }
 }

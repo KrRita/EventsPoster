@@ -19,7 +19,8 @@ namespace EventsPoster.DataAccess
         public DbSet<FeedbackEntity> Feedbacks { get; set; }
         public DbSet<HoldingEventEntity> HoldingsEvents { get; set; }
         public DbSet<TicketEntity> Tickets { get; set; }
-        public DbSet<TypeEventEntity> TypesEvents { get; set; }
+        public DbSet<EventType> TypesEvents { get; set; }
+        
 
         public EventsPosterDbContext(DbContextOptions options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,10 +37,10 @@ namespace EventsPoster.DataAccess
             modelBuilder.Entity<BuyingTicketEntity>().HasIndex(x => x.ExternalId).IsUnique();
             modelBuilder.Entity<BuyingTicketEntity>().HasOne(x => x.User)
                                                      .WithMany(x => x.BuyingTickets)
-                                                     .HasForeignKey(x => x.IdUser);
+                                                     .HasForeignKey(x => x.UserId);
             modelBuilder.Entity<BuyingTicketEntity>().HasOne(x => x.Ticket)
                                                      .WithMany()
-                                                     .HasForeignKey(x => x.IdTicket);
+                                                     .HasForeignKey(x => x.TicketId);
 
 
             modelBuilder.Entity<DiscountEntity>().HasKey(x => x.Id);
@@ -48,50 +49,50 @@ namespace EventsPoster.DataAccess
 
             modelBuilder.Entity<EventEntity>().HasKey(x => x.Id);
             modelBuilder.Entity<EventEntity>().HasIndex(x => x.ExternalId).IsUnique();
-            modelBuilder.Entity<EventEntity>().HasOne(x => x.TypeEvent)
-                                              .WithMany(x=>x.Events)
-                                              .HasForeignKey(x => x.IdTypeEvent);
+            modelBuilder.Entity<EventEntity>().HasOne(x => x.EventType)
+                                              .WithMany(x => x.Events)
+                                              .HasForeignKey(x => x.TypeEventId);
 
 
             modelBuilder.Entity<FavoriteEventEntity>().HasKey(x => x.Id);
             modelBuilder.Entity<FavoriteEventEntity>().HasIndex(x => x.ExternalId).IsUnique();
             modelBuilder.Entity<FavoriteEventEntity>().HasOne(x => x.User)
                                                       .WithMany(x => x.FavoriteEvents)
-                                                      .HasForeignKey(x => x.IdUser);
+                                                      .HasForeignKey(x => x.UserId);
             modelBuilder.Entity<FavoriteEventEntity>().HasOne(x => x.HoldingEvent)
                                                       .WithMany()
-                                                      .HasForeignKey(x => x.IdUser);
+                                                      .HasForeignKey(x => x.HoldingEventId);
 
 
             modelBuilder.Entity<FeedbackEntity>().HasKey(x => x.Id);
             modelBuilder.Entity<FeedbackEntity>().HasIndex(x => x.ExternalId).IsUnique();
             modelBuilder.Entity<FeedbackEntity>().HasOne(x => x.User)
                                                  .WithMany(x=>x.Feedbacks)
-                                                 .HasForeignKey(x=>x.IdUser);
+                                                 .HasForeignKey(x=>x.UserId);
             modelBuilder.Entity<FeedbackEntity>().HasOne(x => x.Event)
                                                  .WithMany(x => x.Feedbacks)
-                                                 .HasForeignKey(x => x.IdEvent);
+                                                 .HasForeignKey(x => x.EventId);
 
 
             modelBuilder.Entity<HoldingEventEntity>().HasKey(x => x.Id);
             modelBuilder.Entity<HoldingEventEntity>().HasIndex(x => x.ExternalId).IsUnique();
             modelBuilder.Entity<HoldingEventEntity>().HasOne(x => x.Event)
                                                      .WithMany(x => x.Holdings)
-                                                     .HasForeignKey(x => x.IdEvent);
+                                                     .HasForeignKey(x => x.EventId);
 
 
             modelBuilder.Entity<TicketEntity>().HasKey(x => x.Id);
             modelBuilder.Entity<TicketEntity>().HasIndex(x => x.ExternalId).IsUnique();
             modelBuilder.Entity<TicketEntity>().HasOne(x => x.HoldingEvent)
                                                .WithMany(x => x.Tickets)
-                                               .HasForeignKey(x => x.IdHoldingEvent);
+                                               .HasForeignKey(x => x.HoldingEventId);
             modelBuilder.Entity<TicketEntity>().HasOne(x => x.Discount)
                                                .WithMany(x => x.Tickets)
-                                               .HasForeignKey(x => x.IdDiscount);
+                                               .HasForeignKey(x => x.DiscountId);
 
 
-            modelBuilder.Entity<TypeEventEntity>().HasKey(x => x.Id);
-            modelBuilder.Entity<TypeEventEntity>().HasIndex(x => x.ExternalId).IsUnique();
+            modelBuilder.Entity<EventType>().HasKey(x => x.Id);
+            modelBuilder.Entity<EventType>().HasIndex(x => x.ExternalId).IsUnique();
         }
     }
 }

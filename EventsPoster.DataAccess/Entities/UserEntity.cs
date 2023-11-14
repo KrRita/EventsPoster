@@ -11,11 +11,17 @@ namespace EventsPoster.DataAccess.Entities
     [Table("users")]
     public class UserEntity : BaseEntity
     {
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Surname {  get; set; }
+        [Required]
         public string Email { get; set; }
+        [Required]
         public string PhoneNumber { get; set; }
+        [Required]
         public string CardNumber {  get; set; }
+        [Required]
         public string PasswordHash {  get; set; }
         public ICollection<FavoriteEventEntity> FavoriteEvents { get; set;}
         public ICollection<FeedbackEntity> Feedbacks { get; set;}

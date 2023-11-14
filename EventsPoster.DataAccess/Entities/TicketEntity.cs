@@ -12,10 +12,13 @@ namespace EventsPoster.DataAccess.Entities
     [Table("tickets")]
     public class TicketEntity : BaseEntity
     {
-        public int IdHoldingEvent { get; set; }
+        [Required]
+        public int HoldingEventId { get; set; }
+        [Required]
         public HoldingEventEntity HoldingEvent { get; set; }
-        public int IdDiscount { get; set; }//optional
-        public DiscountEntity Discount { get; set; }//optional
+        public int? DiscountId { get; set; }
+        public DiscountEntity? Discount { get; set; }
+        [Required]
         public double Price { get; set; }
     }
 }

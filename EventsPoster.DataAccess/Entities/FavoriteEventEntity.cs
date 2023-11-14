@@ -9,12 +9,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventsPoster.DataAccess.Entities
 {
-    [Table("favorite events")]
+    [Table("favorite_events")]
     public class FavoriteEventEntity : BaseEntity
     {
-        public int IdUser { get; set; }
+        [Required]
+        public int UserId { get; set; }
+        [Required]
         public UserEntity User { get; set; }
-        public int IdHoldingEvent { get; set; }
+        [Required]
+        public int HoldingEventId { get; set; }
+        [Required]
         public HoldingEventEntity HoldingEvent { get; set; }
 
     }

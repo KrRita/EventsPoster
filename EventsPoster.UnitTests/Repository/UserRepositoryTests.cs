@@ -58,7 +58,7 @@ namespace EventsPoster.UnitTests.Repository
         {
             //prepare
             using var context = DbContextFactory.CreateDbContext();
-            var type_event = new TypeEventEntity () 
+            var type_event = new EventType () 
             { 
                 Name = "Опера", 
                 ExternalId = Guid.NewGuid() 
@@ -70,7 +70,7 @@ namespace EventsPoster.UnitTests.Repository
             {
             new EventEntity()
             {
-                IdTypeEvent=type_event.Id,
+                TypeEventId=type_event.Id,
                 Name="Руслан и Людмила",
                 Desctiption="Потрясающая опера, исполняемая артистами Московского Большого театра",
                 AgeViewer=6,
@@ -78,7 +78,7 @@ namespace EventsPoster.UnitTests.Repository
             },
             new EventEntity()
             {
-                IdTypeEvent=type_event.Id,
+                TypeEventId=type_event.Id,
                 Name="Кармен",
                 Desctiption="Потрясающая опера, исполняемая артистами Московского Большого театра",
                 AgeViewer=12,
@@ -93,7 +93,7 @@ namespace EventsPoster.UnitTests.Repository
             var actualEvents = repository.GetAll();
 
             //assert        
-            actualEvents.Should().BeEquivalentTo(events, options => options.Excluding(x => x.TypeEvent));
+            actualEvents.Should().BeEquivalentTo(events, options => options.Excluding(x => x.EventType));
         }
         [Test]
         public void GetAllUsersWithFilterTest()

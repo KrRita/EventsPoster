@@ -9,12 +9,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventsPoster.DataAccess.Entities
 {
-    [Table("holding events")]
+    [Table("holding_events")]
     public class HoldingEventEntity : BaseEntity
     {
-        public int IdEvent { get; set; }
+        [Required]
+        public int EventId { get; set; }
+        [Required]
         public EventEntity Event { get; set; }
+        [Required]
         public DateTime DateEvent { get; set; }
+        [Required]
         public string Location { get; set; } 
         public ICollection<TicketEntity> Tickets { get; set; }
     }

@@ -8,9 +8,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventsPoster.DataAccess.Entities
 {
-    [Table("types events")]
-    public class TypeEventEntity : BaseEntity
+    [Table("types_events")]
+    public class EventType : BaseEntity
     {
+        [Required]
         public string Name { get; set; }
         public ICollection<EventEntity> Events { get; set; }
     }

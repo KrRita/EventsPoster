@@ -12,10 +12,15 @@ namespace EventsPoster.DataAccess.Entities
     [Table("feedbacks")]
     public class FeedbackEntity : BaseEntity
     {
-        public int IdUser { get; set; }
+        [Required]
+        public int UserId { get; set; }
+        [Required]
         public UserEntity User { get; set; }
-        public int IdEvent { get; set; }
+        [Required]
+        public int EventId { get; set; }
+        [Required]
         public EventEntity Event { get; set; }
+        [Required]
         public string Review { get; set; }
     }
 }

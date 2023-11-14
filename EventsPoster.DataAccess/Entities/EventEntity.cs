@@ -12,10 +12,15 @@ namespace EventsPoster.DataAccess.Entities
     [Table("events")]
     public class EventEntity : BaseEntity
     {
-        public int IdTypeEvent { get; set; }
-        public TypeEventEntity TypeEvent { get; set; }
+        [Required]
+        public int TypeEventId { get; set; }
+        [Required]
+        public EventType EventType { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Desctiption { get; set; }
+        [Required]
         public int AgeViewer { get; set; }
         public ICollection<HoldingEventEntity> Holdings { get; set; }
         public ICollection<FeedbackEntity> Feedbacks { get; set; }

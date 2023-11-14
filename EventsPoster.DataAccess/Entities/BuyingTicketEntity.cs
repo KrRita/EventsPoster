@@ -9,13 +9,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventsPoster.DataAccess.Entities
 {
-    [Table("buying tickets")]
+    [Table("buying_tickets")]
     public class BuyingTicketEntity : BaseEntity
     {
-        public int IdUser { get; set; }
+        [Required]
+        public int UserId { get; set; }
+        [Required]
         public UserEntity User { get; set; }
-        public int IdTicket { get; set; }
+        [Required]
+        public int TicketId { get; set; }
+        [Required]
         public TicketEntity Ticket { get; set; }
+        [Required]
         public DateTime DatePurchase { get; set; }
     }
 }

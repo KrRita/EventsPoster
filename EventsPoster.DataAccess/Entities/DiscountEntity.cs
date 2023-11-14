@@ -12,7 +12,9 @@ namespace EventsPoster.DataAccess.Entities
     [Table("discounts")]
     public class DiscountEntity : BaseEntity
     {
+        [Required]
         public string Name { get; set; }
+        [Required]
         public double Percent {  get; set; }
         public ICollection<TicketEntity> Tickets { get; set; }
     }
