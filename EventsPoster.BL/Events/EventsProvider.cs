@@ -24,10 +24,10 @@ namespace EventsPoster.BL.Events
 
         public IEnumerable<EventModel> GetEvents(EventModelFilter modelFilter = null)
         {
-            var eventTypeID = modelFilter.IdEventType;
-            var name = modelFilter.Name;
-            var age = modelFilter.AgeViewer;
-            var description = modelFilter.Desctiption;
+            var eventTypeID = modelFilter?.IdEventType;
+            var name = modelFilter?.Name;
+            var age = modelFilter?.AgeViewer;
+            var description = modelFilter?.Desctiption;
 
             var events = _eventRepository.GetAll(x =>
             (eventTypeID == null || eventTypeID == x.TypeEventId) &&

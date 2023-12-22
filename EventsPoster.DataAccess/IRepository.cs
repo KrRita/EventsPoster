@@ -8,7 +8,7 @@ using EventsPoster.DataAccess.Entities;
 
 namespace EventsPoster.DataAccess
 {
-    public interface IRepository<T> where T : BaseEntity
+    public interface IRepository<T> where T : class, IBaseEntity
     {
         IEnumerable<T> GetAll();
         IEnumerable<T> GetAll(Expression<Func<T, bool>> filter);

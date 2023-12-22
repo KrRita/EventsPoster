@@ -10,11 +10,17 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventsPoster.DataAccess", "EventsPoster.DataAccess\EventsPoster.DataAccess.csproj", "{0CD220F2-DB95-4550-B166-6DF9F6F3F46B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventsPoster.BL.UnitTests", "EventsPoster.BL.UnitTests\EventsPoster.BL.UnitTests.csproj", "{0FCAA97C-3A74-4B1C-BEBC-ED6CBD650DDD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0A8CB46D-59ED-4E04-BA4E-B61412122CCC} = {0A8CB46D-59ED-4E04-BA4E-B61412122CCC}
+		{0CD220F2-DB95-4550-B166-6DF9F6F3F46B} = {0CD220F2-DB95-4550-B166-6DF9F6F3F46B}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventsPoster.UnitTests", "EventsPoster.UnitTests\EventsPoster.UnitTests.csproj", "{19696B70-E7DB-41D3-B8A8-36853CED4E2A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0CD220F2-DB95-4550-B166-6DF9F6F3F46B} = {0CD220F2-DB95-4550-B166-6DF9F6F3F46B}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventsPoster.Service.UnitTests", "EventsPoster.Service.UnitTests\EventsPoster.Service.UnitTests.csproj", "{21252F74-63B6-41C6-BB31-7EBFDE9F92B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +48,10 @@ Global
 		{19696B70-E7DB-41D3-B8A8-36853CED4E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19696B70-E7DB-41D3-B8A8-36853CED4E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19696B70-E7DB-41D3-B8A8-36853CED4E2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21252F74-63B6-41C6-BB31-7EBFDE9F92B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21252F74-63B6-41C6-BB31-7EBFDE9F92B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21252F74-63B6-41C6-BB31-7EBFDE9F92B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21252F74-63B6-41C6-BB31-7EBFDE9F92B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

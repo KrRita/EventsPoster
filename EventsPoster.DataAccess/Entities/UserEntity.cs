@@ -5,12 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace EventsPoster.DataAccess.Entities
 {
     [Table("users")]
-    public class UserEntity : BaseEntity
+    public class UserEntity : IdentityUser<int>, IBaseEntity
     {
+        public Guid ExternalId { get; set; }
+        public DateTime ModificationTime { get; set; }
+        public DateTime CreationTime { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -26,6 +30,8 @@ namespace EventsPoster.DataAccess.Entities
         public ICollection<FavoriteEventEntity> FavoriteEvents { get; set;}
         public ICollection<FeedbackEntity> Feedbacks { get; set;}
         public ICollection<BuyingTicketEntity> BuyingTickets { get; set;}
+
+        public class UserRoleEntity:IdentityRole<int> { }
 
     }
 }

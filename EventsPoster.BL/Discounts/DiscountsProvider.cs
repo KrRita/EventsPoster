@@ -24,8 +24,8 @@ namespace EventsPoster.BL.Discounts
 
         public IEnumerable<DiscountModel> GetDiscounts(DiscountModelFilter modelFilter = null)
         {
-            var name = modelFilter.Name;
-            var percent = modelFilter.Percent;
+            var name = modelFilter?.Name;
+            var percent = modelFilter?.Percent;
 
             var discounts = _discountRepository.GetAll(x => (
             (name == null || name == x.Name) &&

@@ -1,12 +1,7 @@
 ﻿using AutoMapper;
-using EventsPoster.DataAccess.Entities;
-using EventsPoster.DataAccess;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EventsPoster.BL.Admins.Entities;
+using EventsPoster.DataAccess;
+using EventsPoster.DataAccess.Entities;
 
 namespace EventsPoster.BL.Admins
 {
@@ -23,7 +18,7 @@ namespace EventsPoster.BL.Admins
 
         public IEnumerable<AdminModel> GetAdmins(AdminModelFilter modelFilter = null)
         {
-            var login = modelFilter.Login;
+            var login = modelFilter?.Login;
         
 
             var admins = _adminRepository.GetAll(x => (
